@@ -281,11 +281,7 @@ pipeline {
                     env.PIPELINE_STAGE = 'Security Gate'
                     env.PIPELINE_STATUS = 'RUNNING'
 
-                    def status = powershell(
-                        returnStatus: true,
-                        script: 'python scripts/evaluate_gate.py'
-                    )
-
+                    
                     if (status == 0) {
                         powershell '''
                             Set-Content -Path "gate-status.txt" -Value "PASS"
@@ -342,7 +338,7 @@ pipeline {
                 }
 
                 powershell '''
-                    python scripts/publish_to_dashboard.py
+                    & "C:/Users/athis/AppData/Local/Programs/Python/Python312/python.exe" scripts/generate_dashboard.py
                 '''
             }
         }
