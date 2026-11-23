@@ -274,34 +274,41 @@ pipeline {
                 archiveArtifacts artifacts: 'ai-remediation-candidates.json', allowEmptyArchive: true
             }
         }
+	
+stage('Security Gate') {
+    steps {
+        script {
+            env.PIPELINE_STAGE = 'Security Gate'
+            env.PIPELINE_STATUS = 'RUNNING'
 
-        stage('Security Gate') {
-            steps {
-                script {
-                    env.PIPELINE_STAGE = 'Security Gate'
-                    env.PIPELINE_STATUS = 'RUNNING'
+            def status = powershell(
+                returnStatus: true,
+                script: '& "C:/Users/athis/AppData/Local/Programs/Python/Python312/python.exe" scripts/evaluate_gate.py'
+            )
 
-                    
-                    if (status == 0) {
-                        powershell '''
-                            Set-Content -Path "gate-status.txt" -Value "PASS"
-                        '''
+            if (status == 0) {
+                powershell '''
+                    Set-Content -Path "gate-status.txt" -Value "PASS"
+                '''
 
-                        env.GATE_STATUS = 'PASS'
-                        echo 'Security Gate: PASS'
-                    } else {
-                        powershell '''
-                            Set-Content -Path "gate-status.txt" -Value "FAIL"
-                    '''
+                env.GATE_STATUS = 'PASS'
+                echo 'Security Gate: PASS'
+            } else {
+                powershell '''
+                    Set-Content -Path "gate-status.txt" -Value "FAIL"
+                '''
 
-                        env.GATE_STATUS = 'FAIL'
-                        echo 'Security Gate: FAIL'
-                    }
-
-                    echo "Security Gate file: ${readFile('gate-status.txt').trim()}"
-                }
+                env.GATE_STATUS = 'FAIL'
+                echo 'Security Gate: FAIL'
             }
+
+            echo "Security Gate file: ${readFile('gate-status.txt').trim()}"
         }
+    }
+}
+
+
+                
 
         stage('Generate Dashboard Report') {
             steps {
