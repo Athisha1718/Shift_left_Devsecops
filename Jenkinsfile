@@ -265,8 +265,7 @@ pipeline {
                 }
 
                 powershell '''
-                    & "C:\Users\athis\AppData\Local\Programs\Python\Python312\python.exe" scripts/classify_remediations.py
-
+                   & "C:/Users/athis/AppData/Local/Programs/Python/Python312/python.exe" scripts/classify_remediations.py
                     if ($LASTEXITCODE -ne 0) {
                         exit $LASTEXITCODE
                     }
