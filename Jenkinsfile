@@ -365,7 +365,7 @@ stage('Security Gate') {
                 }
 
                 powershell '''
-                    python scripts/create_remediation_tickets.py
+                    & "C:/Users/athis/AppData/Local/Programs/Python/Python312/python.exe" scripts/create_remediation_tickets.py
                 '''
             }
         }
@@ -524,7 +524,7 @@ stage('Security Gate') {
                 }
 
                 powershell '''
-                    python scripts/publish_to_dashboard.py
+                    & "C:/Users/athis/AppData/Local/Programs/Python/Python312/python.exe" scripts/publish_to_dashboard.py
                 '''
             }
         }
@@ -545,7 +545,7 @@ stage('Security Gate') {
 
                         powershell '''
                            $env:PUBLISH_FINDINGS = "1"
-                           python scripts/publish_to_dashboard.py
+                           & "C:/Users/athis/AppData/Local/Programs/Python/Python312/python.exe" scripts/publish_to_dashboard.py
                         '''
                         currentBuild.result = 'SUCCESS'
                     } else {
@@ -557,7 +557,7 @@ stage('Security Gate') {
 
                         powershell '''
                            $env:PUBLISH_FINDINGS = "1"
-                           python scripts/publish_to_dashboard.py
+                           & "C:/Users/athis/AppData/Local/Programs/Python/Python312/python.exe" scripts/publish_to_dashboard.py
                         '''
 
                         currentBuild.result = 'FAILURE'
