@@ -7,12 +7,12 @@ pipeline {
     agent any
 
     environment {
-        REPO_URL            = 'https://github.com/KowshikaM/Shift_left_Devsecops.git'
-        DOCKERHUB_NAMESPACE = 'kowshika8'
-        KUBE_CONTEXT        = 'kind-kind'
+        REPO_URL            = 'https://github.com/Athisha1718/Shift_left_Devsecops.git'
+        DOCKERHUB_NAMESPACE = 'athisha1718'
+        KUBE_CONTEXT        = 'minikube'
         IMAGE_NAME          = 'secure-devops-demo'
         IMAGE_TAG           = "${env.BUILD_NUMBER}"
-        GITHUB_REPOSITORY   = 'KowshikaM/Shift_left_Devsecops'
+        GITHUB_REPOSITORY   = 'Athisha1718/Shift_left_Devsecops'
         GITHUB_TOKEN        = credentials('github-token')
         DASHBOARD_URL       = 'http://localhost:2001'
         SCAN_DIR            = '.scan-status'
@@ -265,7 +265,7 @@ pipeline {
                 }
 
                 powershell '''
-                    python scripts/classify_remediations.py
+                    & "C:\Users\athis\AppData\Local\Programs\Python\Python312\python.exe" scripts/classify_remediations.py
 
                     if ($LASTEXITCODE -ne 0) {
                         exit $LASTEXITCODE
