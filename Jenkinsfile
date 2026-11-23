@@ -329,7 +329,7 @@ stage('Security Gate') {
                         $env:GIT_COMMIT = "local"
                     }
 
-                    python scripts/generate_dashboard.py
+                    & "C:/Users/athis/AppData/Local/Programs/Python/Python312/python.exe" scripts/generate_dashboard.py
                 '''
 
                 archiveArtifacts artifacts: 'dashboard/report.html, *-results.json, .scan-status/*.status',
